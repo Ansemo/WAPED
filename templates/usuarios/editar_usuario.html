@@ -1,0 +1,20 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Edicion Nuevo Usuario: {{ object.username }}</h5>
+        </div>
+        <form id="form_edicion" action="{% url 'actualizar_usuario' object.pk %}" method="POST">
+            {% csrf_token%}
+            <div class="modal-body">
+                <div id="erroresEdicion">
+
+                </div>
+                {{ form.as_p }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrar_modal_dicion()">Camcelar</button>
+                <button id="botton_creacion" type="button" class="btn btn-primary" onclick="editar_usuario()">Confirmar</button>
+            </div>
+        </form>
+    </div>
+</div>

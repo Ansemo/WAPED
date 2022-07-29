@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block css_extra %}
+    <!--Data table-->
+    <link rel="stylesheet" href="{% static 'data table/css/jquery.dataTables.min.css' %}">
+    <!--EndData table-->
+{% endblock %}
+{% block pagina_titulo %}Elementos Deportivos{% endblock %}
+{% block pagina_anterior %}Waped{% endblock %}
+{% block pagina_actual %}Elementos Deportivos{% endblock %}
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-success" onclick="abrir_modal_creacion('{% url 'registrar_elemento' %}')">
+                    <i class="bi bi-plus-circle"></i> Crear Nuevo Elemento
+                </button>
+                <br><br>
+                <table id="tabla_elementos" class="table table-striped table-responsive">
+                    <thead>
+                    <tr>
+{#                        <th scope="col">#</th >#}
+                        <th scope="col">numero</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Sub Categoria</th>
+                        <th scope="col">estado</th>
+                        <th scope="col">Disponibilidad</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                    </thead>
+                    {##}
+                    {#                    {% for elementos in Elementos %}#}
+                    {#                        <tr>#}
+                    {#                            <td>{{ elementos.numero }}</td>#}
+                    {#                            <td>{{ elementos.sub_categoria.categoria }}</td>#}
+                    {#                            <td>{{ elementos.sub_categoria }}</td>#}
+                    {#                            <td>{{ elementos.estado }}</td>#}
+                    {#                            <td>{{ elementos.disponibilidad }}</td>#}
+                    {#                        </tr>#}
+                    {##}
+                    {#                    {% endfor %}#}
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="creacion" role="dialog">
+
+    </div>
+    <div class="modal fade" id="edicion" role="dialog">
+
+    </div>
+
+    <div class="modal fade" id="eliminacion" role="dialog">
+
+    </div>
+
+{% endblock %}
+
+{% block extrajs %}
+    <script src="{% static 'elementos/index.js' %}"></script>
+    <script src="{% static 'data table/js/jquery.dataTables.min.js' %}"></script>
+{% endblock %}

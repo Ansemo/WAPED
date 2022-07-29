@@ -1,0 +1,18 @@
+<div class="modal-dialog modal-ms">
+    <div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title">Eliminar elemento deportivo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="container">
+            {% csrf_token %}
+            <span>Se eliminara el elemento numero: {{ object.numero }}</span><br><br>
+            Una ves eliminado el no se podra recuperar.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="cerrar_modal_eliminacion()">Camcelar</button>
+            <button type="button" class="btn btn-danger" onclick="eliminar_Elemento({{ object.id }})">Confirmar
+                eliminación
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+{% load static %}
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'iniciarsesion' %}">
+                <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-heading">pages</li>
+        {% if user.is_superuser or user.is_staff%}
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'listar_usuario' %}">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Usuarios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'listar_elementos' %}">
+                    <i class="bi bi-table"></i>
+                    <span>Inventario</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'listado_devoluciones' %}">
+                    <i class="bi bi-layer-backward"></i>
+                    <span>Devoluciones</span>
+                </a>
+            </li>
+        {% endif %}<!-- End Usuarios -->
+
+    </ul>
+
+</aside>

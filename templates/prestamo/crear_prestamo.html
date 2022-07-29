@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+{% block pagina_titulo %}Lista de elementos disponibles{% endblock %}
+{% block main %}
+    <div class="container">
+        <div class="row  mb-4">
+            {% for elemento in object_list %}
+                <div class="col-md-3">
+                    <a href="{% url 'detalle_elemento' elemento.id %}">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-8">
+                                    <div class="card-body"><h5
+                                            class="card-title">{{ elemento.sub_categoria.categoria }}
+                                        <span>| {{ elemento.sub_categoria }}</span></h5>
+                                        Numero <span class="badge bg-warning text-dark">{{ elemento.numero }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="pagination">
+        {% if is_paginated %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                    </li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+<div class="modal-dialog modal-ms">
+    <div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edicion Elemento: {{ object.username }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="form_edicion" action="{% url 'actualizar_elemento' object.pk %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div id="erroresEdicion">
+
+                </div>
+                {{ form.as_p }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrar_modal_dicion()">Camcelar</button>
+                <button id="botton_creacion" type="button" class="btn btn-primary" onclick="editar_Elemento()">
+                    Confirmar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="modal-dialog modal-ms">
+    <div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title">Crear Nuevo Elemento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="form_creacion" action="{% url 'registrar_elemento' %}" method="POST">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div id="errores">
+
+                </div>
+                {{ form.as_p }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrar_modal_creacion()">Camcelar</button>
+                <button id="botton_creacion" type="button" class="btn btn-primary" onclick="registrar_Elemento()">
+                    Confirmar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+{% block pagina_titulo %}Confirmar Prestamo{% endblock %}
+{% block main %}
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-md-4"><img src="{{ object.imagen.url }}" class="img-fluid rounded-start" alt="..."></div>
+            <div class="col-md-8">
+                <div class="card-body"><h5 class="card-title">{{ object.sub_categoria.categoria }}
+                    <span>| {{ object.sub_categoria }}</h5>
+                    Numero identificador <span class="badge bg-warning text-dark">{{ object.numero }}</span>
+                    <br>
+                    <br>
+                    <h6>Me comprometo a hacerme responsable por cualquier daño que pueda sufrir el elemento
+                        deportivo*</h6>
+                    <br>
+                    <p>Seleccionar hora del préstamo</p>
+                    {% csrf_token %}
+                    {% for i in object.horas_disponibles.all %}
+                        {% if i.disponibilidad == True %}
+                            <button class="btn btn-success mt-4" type="button"
+                                    onclick="registarPrestamo('{{ i }}');">{{ i }}</button>
+                        {% endif %}
+                        {% if i.disponibilidad == False %}
+                            <button disabled class="btn btn-danger mt-4" type="button">{{ i }}</button>
+
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extrajs %}
+    <script type="text/javascript">
+        function registarPrestamo(hora) {
+            data = {
+
+                'usuario': "{{ request.user.id }}",
+                'elemento': "{{ object.id }}",
+                'hora': hora,
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
+
+            }
+            $.ajax({
+                data: data,
+                url: "{% url 'registrar_prestamo' %}",
+                type: 'post',
+                success: function (response) {
+                    console.log(response.url)
+                    if (response.url) {
+                        notificacion_success(response.mensaje);
+                        window.location.href = response.url;
+                    } else {
+                        notificacion_error(response.mensaje)
+                    }
+
+                },
+                error: function (response) {
+                    console.log(response.url)
+                    notificacion_error(response.mensaje)
+                    window.location.href = response.url;
+                }
+            });
+        }
+    </script>
+{% endblock %}

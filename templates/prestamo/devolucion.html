@@ -1,0 +1,60 @@
+<div class="modal-dialog modal-ms">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="card-title">Devolucion |
+                <td><span>Prestamo Nª {{ object.id }}</span></td>
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form id="form_edicion" action="{% url 'actualizar_elemento' object.pk %}" method="POST"
+
+              enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div>
+                    {{ form.as_p }}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrar_modal_devolucion()">Camcelar</button>
+                <button id="botton_creacion" type="button" class="btn btn-primary" onclick="registarDevolucion()">
+                    Confirmar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function registarDevolucion() {
+        data = {
+            'prestamo': {{ object.id }},
+            'encargado': "{{ request.user.id }}",
+            'elemento': "{{ object.elemento_deportivo_id }}",
+            'descripcion': document.getElementById("descripcion").value,
+            'estado_entrega': document.getElementById("estado").value,
+            csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
+        }
+        console.log(data)
+        $.ajax({
+            data: data,
+            url: "{% url 'registrar_devolucion' %}",
+            type: 'post',
+            success: function (response) {
+                console.log(response.url)
+                if (response.url) {
+                    notificacion_success(response.mensaje);
+                    window.location.href = response.url;
+                } else {
+                    notificacion_error(response.mensaje)
+                }
+
+            },
+            error: function (response) {
+                console.log(response.url)
+                notificacion_error(response.mensaje)
+                {#window.location.href = response.url;#}
+            }
+        });
+    }
+</script>

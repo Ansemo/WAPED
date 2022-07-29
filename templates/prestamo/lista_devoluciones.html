@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block css_extra %}
+    <!--Data table-->
+    <link rel="stylesheet" href="{% static 'data table/css/jquery.dataTables.min.css' %}">
+    <!--EndData table-->
+{% endblock %}
+{% block pagina_titulo %}Dovoluciones{% endblock %}
+{% block pagina_anterior %}Waped{% endblock %}
+{% block pagina_actual %}Lista dovoluciones{% endblock %}
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <table id="tabla_devoluciones" class="table table-striped table-responsive">
+                    <thead>
+                    <tr>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Elemento</th>
+                        <th scope="col">Estudiente</th>
+                        <th scope="col">Encarcago</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Estado de entrega</th>
+                        <th scope="col">Fecha prestamo</th>
+                        <th scope="col">Fecha devoluciòn</th>
+                    </tr>
+                    </thead>
+                    {% for devolucion in devoluciones %}
+                        <td>{{ devolucion.id }}</td>
+                        <td>{{ devolucion.prestamo.elemento_deportivo }}</td>
+                        <td>{{ devolucion.prestamo.id_estudiante }}</td>
+                        <td>{{ devolucion.encarcago }}</td>
+                        <td>{{ devolucion.descripcion }}</td>
+                        <td>{{ devolucion.estado_entrega }}</td>
+                        <td>{{ devolucion.prestamo.fecha_prestamo }} a las {{ devolucion.prestamo.hora_presamto }}</td>
+                        <td>{{ devolucion.fecha_devolucion }}</td>
+                    {% endfor %}
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrajs %}
+    <script src="{% static 'data table/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript">
+        $('#tabla_devoluciones').DataTable({
+            "order": [[1, "desc"]],
+            pageLength: 5,
+            lengthMenu: [[5, 10, 20], [5, 10, 20]],
+            language: {
+                decimal: "",
+                emptyTable: "No hay información",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ Devoliciones",
+                infoEmpty: "Mostrando 0 to 0 of 0 Devoliciones",
+                infoFiltered: "(Filtrado de _MAX_ total de Devoliciones)",
+                infoPostFix: "",
+                thousands: ",",
+                lengthMenu: "Mostrar _MENU_ Devoliciones",
+                loadingRecords: "Cargando...",
+                processing: "Procesando...",
+                search: "Buscar:",
+                zeroRecords: "Sin Devoliciones encontradas",
+                paginate: {
+                    first: "Primero",
+                    last: "Ultimo",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+            },
+
+        });
+    </script>
+{% endblock %}

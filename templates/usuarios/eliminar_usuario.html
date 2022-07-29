@@ -1,0 +1,25 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">¿Desea eliminar el usuario: {{ object.username }} ?</h5>
+        </div>
+        <div class="modal-body">{% csrf_token %}
+            <span>Se eliminara el usuario con los siguientes elementos:</span><br>
+            <br>
+            - Nombre de usuario: {{ object.username }}<br>
+            {% if object.nombres %}
+                - Nombre: {{ object.nombres }}<br>
+            {% endif %}
+            {% if object.apellidos %}
+                - Apellido: {{ object.apellidos }}<br>
+            {% endif %}
+            - Email: {{ object.email }}<br>
+            <br>
+            Una ves eliminado el usuario este no se podra recuperar.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="cerrar_modal_eliminacion()">Camcelar</button>
+            <button type="button" class="btn btn-danger" onclick="eliminar_usuario({{ object.pk }})">Confirmar eliminación</button>
+        </div>
+    </div>
+</div>
